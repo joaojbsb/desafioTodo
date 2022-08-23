@@ -1,27 +1,42 @@
-import { TextInput } from 'react-native';
-import styled, { css } from 'styled-components/native';
+import { TextInput, TouchableOpacity } from 'react-native';
+import styled, {css} from 'styled-components/native';
 
-export type TypeProps = 'primary' | 'secondary';
 
-type Props = {
-    type: TypeProps;
-}
 
-export const Container = styled(TextInput).attrs<Props>(({theme, type})=> ({
-    placeholderTextColor: type === 'primary' ? theme.COLORS.SECONDARY_900: theme.COLORS.PRIMARY_50
-}))<Props>`
-    width: 100%;
-    height: 56px;
-    background-color: transparent;
-    border-radius: 12px;
+export const Container = styled.View`
+    flex-direction: row;
+    margin-top: -27px;
+    justify-content: center;
+
+`;
+
+export const InputText = styled(TextInput).attrs({
+
+})`
+    width: 271px;
+    height: 54px;
+    padding: 16px;
+    border: 1px solid #5E60CE;
+    border-radius: 6px;
     font-size: 14px;
-    padding: 7px 0;
-    padding-left: 20px;
-    margin-bottom: 16px;
+    margin-left: 24px;
+    margin-right: 4px;
+    background-color: #262626;
 
-    ${({ theme, type})=> css`
+
+    ${({ theme })=> css`
         font-family: ${theme.FONTS.TEXT};
-        border: 1px solid ${theme.COLORS.SHAPE};
-        color: ${type === 'primary' ? theme.COLORS.SECONDARY_900: theme.COLORS.TITLE};
+        color: ${theme.COLORS.TITLE};
     `};
+`;
+
+export const AddButon = styled(TouchableOpacity)`
+    width: 52px;
+    height: 52px;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E6F9F;
+    margin-right: 24px;
+    padding: 18px;
+    border-radius: 6px;
 `;

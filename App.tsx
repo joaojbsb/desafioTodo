@@ -1,3 +1,4 @@
+import React from 'react';
 import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as SplashScreen from 'expo-splash-screen';
@@ -9,12 +10,12 @@ import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import { ThemeProvider} from 'styled-components/native';
 import Theme  from './src/theme';
 
-import { AuthProvider } from "./src/hooks/auth";
+
 
 //importando telas
-import { Signin } from './src/screens/Signin';
-import React from 'react';
-import { Product } from './src/screens/Product';
+import { Home } from './src/screens/Home';
+
+
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -32,9 +33,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={Theme } >
         <StatusBar style='light' translucent backgroundColor='transparent' />
-        <AuthProvider>
-          <Product />
-        </AuthProvider> 
+        <Home />
       </ThemeProvider>
     </GestureHandlerRootView>
   );
