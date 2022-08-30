@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Input } from '../../components/Input';
 import { Header } from '../../components/Header';
 import { Empty } from '../../components/Empty';
-
+import { TaskList, TaskProps } from '../../components/TaskList';
+import { FlatList } from 'react-native';
 
 
 
@@ -12,13 +13,28 @@ import {
 } from './styles';
 
 
+
+
 export function Home() {
+
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+
+  function addNewTask(task:string){
+    const newTask = {
+      id: new Date().getTime(),
+      name: task,
+      done: false
+    };
+    setTasks(oldTasks => [...oldTasks, newTask]);
+  };
+
+  console.log(tasks);
+
   return (
     <Container>
       <Header />
-      <Input 
-        placeholder='Digite a tarefa'
-        addTask={()=>{}}
+      <Input
+        addTask={addNewTask}
       />
 
       <ContainerTitle>
@@ -43,9 +59,22 @@ export function Home() {
 
       </ContainerTitle>
 
-      <Empty>
 
-      </Empty>
+      <Empty />
+
+      <FlatList 
+        data={tasks}
+        keyExtractor={item=> (String(item.id))}
+        renderItem={({ item })=>(
+          <TaskList 
+            id={item.id}
+            name={item.name}
+            done={item.done}
+          />
+        )}
+      />
+
+      
     </Container>
   );
 }
