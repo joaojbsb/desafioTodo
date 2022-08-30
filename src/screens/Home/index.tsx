@@ -1,23 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Input } from '../../components/Input';
 import { Header } from '../../components/Header';
 import { Empty } from '../../components/Empty';
 import { TaskList, TaskProps } from '../../components/TaskList';
 import { Alert, FlatList } from 'react-native';
 
-
-
 import {
   Container, ContainerTitle, ContainerCreated, ContainerFinished, 
   TitleCreated, TitleFinished, NumberCreated, NumberFinished
 } from './styles';
 
-
-
-
 export function Home() {
 
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [qtDone, setQtDone] = useState({});
 
   function addNewTask(task:string){
     const newTask = {
@@ -28,11 +24,10 @@ export function Home() {
     setTasks(oldTasks => [...oldTasks, newTask]);
   };
 
-
   function handleToggleTaskDone(id: number) {
     //TODO - toggle task done if exists
     const updatedTasks = tasks.map(task => ({...task}));
-    const foundItem = updatedTasks.find(item => item.id === id);
+    const foundItem = updatedTasks.find(item => item.id === id); 
 
     if (!foundItem) {
       return;
@@ -58,7 +53,11 @@ export function Home() {
     ]);
   };
 
-  console.log(tasks);
+useEffect(() => {
+    const done = tasks.filter(tasks => tasks.done === true);
+    setQtDone(done.length);
+}, [tasks]);
+
 
   return (
     <Container>
@@ -83,7 +82,7 @@ export function Home() {
             Concluídas
           </TitleFinished>
           <NumberFinished>
-              0
+            {qtDone}
           </NumberFinished>
         </ContainerFinished>
 

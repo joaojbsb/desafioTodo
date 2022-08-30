@@ -13,12 +13,12 @@ export const ContainerTitle = styled.View`
   height: 19px;
   flex-direction: row;
   margin-top: 32px;
+  margin-bottom: 15px;
   justify-content: space-between;
 `;
 
 export const ContainerCreated = styled.View`
   flex-direction: row;
-
 `;
 
 export const ContainerFinished = styled.View`
