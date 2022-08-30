@@ -15,8 +15,12 @@ export const Container = styled.View`
 `;
 
 export const ContainerCheck = styled.TouchableOpacity`
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #4EA8DE;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
 `;
 
 export const TextTask = styled.Text`
@@ -26,6 +30,8 @@ export const TextTask = styled.Text`
     margin-left: 8px;
     font-size: 14px;
     color: #F2f2f2;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const Del = styled.TouchableOpacity`

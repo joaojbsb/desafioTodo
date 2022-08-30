@@ -3,7 +3,7 @@ import { Input } from '../../components/Input';
 import { Header } from '../../components/Header';
 import { Empty } from '../../components/Empty';
 import { TaskList, TaskProps } from '../../components/TaskList';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 
 
 
@@ -28,6 +28,36 @@ export function Home() {
     setTasks(oldTasks => [...oldTasks, newTask]);
   };
 
+
+  function handleToggleTaskDone(id: number) {
+    //TODO - toggle task done if exists
+    const updatedTasks = tasks.map(task => ({...task}));
+    const foundItem = updatedTasks.find(item => item.id === id);
+
+    if (!foundItem) {
+      return;
+    };
+    foundItem.done = !foundItem.done;
+    setTasks(updatedTasks);
+  };
+
+  function hendleRemoveTask(id: number){
+    Alert.alert('Remover item', 'Tem certeza que você deseja remover esse item?', [
+      {
+        style: 'cancel',
+        text: 'Não'
+      },
+      {
+        style: 'destructive',
+        text: 'Sim',
+        onPress: () => {
+          const updatedTasks = tasks.filter(task=> task.id !== id);
+          setTasks(updatedTasks);
+        }
+      }
+    ]);
+  };
+
   console.log(tasks);
 
   return (
@@ -44,7 +74,7 @@ export function Home() {
             Criadas
           </TitleCreated>
           <NumberCreated>
-              0
+              {tasks.length}
           </NumberCreated>
         </ContainerCreated>
 
@@ -59,10 +89,11 @@ export function Home() {
 
       </ContainerTitle>
 
-
-      <Empty />
-
-      <FlatList 
+      {
+        tasks.length < 1 ?
+        <Empty />
+        :
+        <FlatList 
         data={tasks}
         keyExtractor={item=> (String(item.id))}
         renderItem={({ item })=>(
@@ -70,10 +101,12 @@ export function Home() {
             id={item.id}
             name={item.name}
             done={item.done}
+            toggleTaskDone={handleToggleTaskDone}
+            removeTask={hendleRemoveTask}
           />
         )}
       />
-
+      }
       
     </Container>
   );
